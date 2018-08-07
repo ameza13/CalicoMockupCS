@@ -1,0 +1,6 @@
+CREATE TABLE `amezadev_hc`.`DevKnowledge` ( 
+    `idKnowledge` INT(11) NOT NULL AUTO_INCREMENT , 
+    `type` INT(11) NOT NULL , `keywords` VARCHAR(255) NULL , 
+    `description` TEXT NULL , 
+    `checked` TINYINT NOT NULL , 
+    PRIMARY KEY (`idKnowledge`)) ENGINE = MyISAM

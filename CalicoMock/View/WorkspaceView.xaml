@@ -1,0 +1,503 @@
+﻿<Window x:Class="CalicoMock.View.WorkspaceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:search="clr-namespace:UIControls;assembly=UIControls"
+        xmlns:util="clr-namespace:CalicoMock.Util"
+        xmlns:properties="clr-namespace:CalicoMock.Properties"
+        Title="Calico Redux" Height="1024" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Closed="Window_Closed">
+    <Window.Resources>
+        <Style TargetType="GridSplitter">
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveCaptionColorKey}}"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InactiveBorderColorKey}}"/>
+    </Window.Background>
+    <Grid Name="outerGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Expander Name="navExpander" GotFocus="navExpander_GotFocus" 
+                  ExpandDirection="{Binding Path=ExpDirection}" 
+                  FlowDirection="RightToLeft" IsExpanded="True" 
+                  Collapsed="navExpander_Collapsed" 
+                  Expanded="navExpander_Expanded"
+                  Background="White"
+                  SnapsToDevicePixels="True">
+            <Expander.Header>
+                <Label Name="navHeaderText" Content="Navigation">
+                    <Label.LayoutTransform>
+                        <RotateTransform Angle="{Binding Path=HeaderAngle}"/>
+                    </Label.LayoutTransform>
+                </Label>
+            </Expander.Header>
+            <Grid Name="navGrid" FlowDirection="LeftToRight">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button Name="cmdNewCanvas" HorizontalAlignment="Left" Click="cmdNewCanvas_Click">
+                    <Image Source="..\Images\NewCanvasSmall.png" Stretch="None" ToolTip="New Canvas"></Image>
+                </Button>
+                <Menu Background="Transparent"  HorizontalAlignment="Right" Margin="0">
+                    <MenuItem Name="ctxSort" Padding="0" ToolTip="Sort Canvas List" Height="30">
+                        <MenuItem.Icon>
+                            <Image Source="..\Images\Sort.png" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        </MenuItem.Icon>
+                        <MenuItem Name="sortAscending" Header="Sort Ascending" IsCheckable="True" Checked="sortAscending_Checked">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\Sort.png" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="sortDescending" Header="Sort Descending" IsCheckable="True" Checked="sortDescending_Checked">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\SortDesc.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Name="sortByMenu" Header="Sort By">
+                            <MenuItem Header="Name" IsCheckable="True" Tag="name" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Created" IsCheckable="True" Tag="created" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Modified" IsCheckable="True" Tag="modified" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Creator" IsCheckable="True" Tag="user" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Name="FilterMenu" Padding="0" ToolTip="Filter Canvas List" Height="30" SubmenuOpened="FilterMenu_SubmenuOpened" Margin="0">
+                        <MenuItem.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Background="White"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </MenuItem.ItemsPanel>
+                        <MenuItem.Icon>
+                            <Image Source="..\Images\Filter.png" Stretch="None"></Image>
+                        </MenuItem.Icon>
+                        <TextBlock Text="Filter By" Focusable="False"/>
+                        <Separator/>
+                        <MenuItem Name="FavFilter" Header="Favorites" IsCheckable="True" Checked="FavFilter_CheckChanged" Unchecked="FavFilter_CheckChanged">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\StarEmpty.png" Stretch="None"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Tags">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\Tags.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                            <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                <ListBox Name="lbTagFilter" ItemsSource="{Binding allTagsChecked}" Width="100" Padding="0,5,0,0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Path=Key}" Checked="tag_CheckChanged" Unchecked="tag_CheckChanged" IsChecked="{Binding Path=Value, Mode=OneWay}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+                        </MenuItem>
+                        <MenuItem Header="User">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\User.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                            <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                <ListBox Name="lbUserFilter" ItemsSource="{Binding allUsersChecked}" Width="100" Padding="0,5,0,0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Path=Key}"  Checked="user_CheckChanged" Unchecked="user_CheckChanged" IsChecked="{Binding Path=Value, Mode=OneWay}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+                <search:SearchTextBox Name="searchBox"  Grid.Row="1" FlowDirection="LeftToRight" Height="25" Search="SearchTextBox_Search" SearchEventTimeDelay="0" />
+                <ListView Grid.Row="2" Name="lvNavigator" FlowDirection="LeftToRight" BorderThickness="1" ItemsSource="{Binding}" SelectionChanged="lvNavigator_SelectionChanged" SelectionMode="Multiple" MouseUp="lvNavigator_MouseUp">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid IsItemsHost="True" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <UniformGrid.Columns>
+                                    <MultiBinding Converter="{StaticResource ColumnConverter}">
+                                        <Binding ElementName="ItemHeightSlider" Path="Value"/>
+                                        <Binding ElementName="lvNavigator" Path="ActualWidth" />
+                                    </MultiBinding>
+                                </UniformGrid.Columns>
+                            </UniformGrid>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="CCanvas">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">                                        
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding isInActiveWS}" Value="true">
+                                                <Setter Property="Opacity" Value="0.3"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <Border BorderThickness="1"
+                                        BorderBrush="Black" 
+                                        CornerRadius="3,3,3,3" 
+                                        Style="{StaticResource ThumbnailNavBorder}">
+                                    <Grid>
+                                        <Image Source="{Binding Path=thumbnail}"
+                                               Width="{Binding ElementName=ItemHeightSlider, Path=Value, Converter={StaticResource AspectRatioConverter}}"
+                                               Height="{Binding ElementName=ItemHeightSlider, Path=Value}"
+                                               HorizontalAlignment="Center"
+                                               RenderOptions.BitmapScalingMode="HighQuality">
+                                        </Image>
+                                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="deleteCanvas_Click" FontFamily="Arial Unicode MS">
+                                            <TextBlock Text="x" Margin="2,-4,2,-1">
+                                                <TextElement.Foreground>
+                                                    <SolidColorBrush Color="CornflowerBlue" Opacity="0.75"/>
+                                                </TextElement.Foreground>
+                                            </TextBlock>
+                                        </Button>
+                                        <ToggleButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Focusable="False" IsChecked="{Binding IsFavorite}">
+                                            <ToggleButton.Style>
+                                                <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsChecked" Value="true">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <Image Source="..\Images\StarFull.png"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="false">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <Image Source="..\Images\StarEmpty.png"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ToggleButton.Style>
+                                        </ToggleButton>
+                                        <Button Name ="cboMoveRight" VerticalAlignment="Center" HorizontalAlignment="Right" Click="cboMoveRight_Click">
+                                            <Image Source="..\Images\MoveRight.png" Stretch="None"></Image>
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                                    <Style.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding RelativeSource={RelativeSource
+                                                                                    Mode=FindAncestor,
+                                                                                    AncestorType={x:Type ListBoxItem}},
+                                                                                    Path=IsSelected}" 
+                                                                     Value="true"/>
+                                                                <Condition Binding="{Binding isInActiveWS}" Value="false"/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </MultiDataTrigger>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding RelativeSource={RelativeSource
+                                                                                    Mode=FindAncestor,
+                                                                                    AncestorType={x:Type ListBoxItem}},
+                                                                                    Path=IsSelected}" 
+                                                                     Value="true"/>
+                                                                <Condition Binding="{Binding isInActiveWS}" Value="true"/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </MultiDataTrigger>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                                                                    Mode=FindAncestor,
+                                                                                    AncestorType={x:Type ListBoxItem}},
+                                                                                    Path=IsSelected}"
+                                                                     Value="false">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="{Binding Path=name}" Opacity="1" HorizontalAlignment="Center" 
+                                           Style="{StaticResource CanvasNavCaptionText}"
+                                           Padding="0,0,0,5"
+                                           MaxWidth="{Binding ElementName=ItemHeightSlider, Path=Value, Converter={StaticResource AspectRatioConverter}}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="MouseDoubleClick" Handler="lvNavItem_MouseDoubleClick"/>
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <Slider Name="ItemHeightSlider" Grid.Row="3" Minimum="25" Maximum="200" HorizontalAlignment="Stretch" MaxWidth="100" IsSnapToTickEnabled="True" TickFrequency="5" Value="100"/>
+            </Grid>
+        </Expander>
+        <GridSplitter Name="VSplitter" Grid.Column="1" Width="5" ResizeDirection="Columns" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndCurrent"/>
+        <Grid Name="innerGrid" Grid.Column="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Name="upperGrid" DataContext="_activeWS" PreviewMouseDown="upperGrid_PreviewMouseDown" UseLayoutRounding="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="AliceBlue" BorderThickness="1" Background="White">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" Opacity="0.5"/>
+                    </Border.Effect>
+                </Border>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Stretch">
+                    
+                    <ComboBox Name="cboWSSelector" Margin="10,0,0,0" 
+                              ItemsSource="{Binding Path=allWorkspaces}" 
+                              SelectedItem="{Binding Path=activeWS}" 
+                              Width="125"
+                              Background="AliceBlue"
+                              SelectionChanged="cboWSSelector_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="Workspace">
+                                <TextBlock Text="{Binding name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Name="cmdEditWS" Click="cmdEditWS_Click" ToolTip="Edit workspace details" Focusable="false">
+                        <Image Source="..\Images\Details.png" Stretch="None"/>
+                    </Button>
+                    <Button Name="cmdNewWS" Click="cmdNewWS_Click" ToolTip="New Workspace" Focusable="false">
+                        <Image Source="..\Images\NewWS.png" Stretch="None"/>
+                    </Button>
+                    <Button Name="cmdCloneWS" Click="cmdCloneWS_Click" ToolTip="Clone Workspace" Focusable="false">
+                        <Image Source="..\Images\CloneWS.png" Stretch="None"/>
+                    </Button>
+                    <Button Name="cmdDeleteWS" Click="cmdDeleteWS_Click" ToolTip="Delete current workspace" Focusable="false">
+                        <Image Source="..\Images\DeleteWS.png" Stretch="None"/>
+                    </Button>
+                    <TextBlock Text="Global Canvas Scale:" VerticalAlignment="Center"  Margin="50,0,0,0"/>
+                    <Slider Name="WSScaleSlider" Width="100" Minimum="0.05" Maximum="2.0" IsSnapToTickEnabled="True" IsMoveToPointEnabled="true" TickFrequency="0.05" Value="{Binding Path=Scale}" VerticalAlignment="Center"></Slider>
+                    <TextBlock Text="{Binding ElementName=WSScaleSlider, Path=Value, Converter={StaticResource PercentConverter}}" VerticalAlignment="Center"/>
+                    <TextBlock Text="%" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+                <Button Grid.Column="1" Name="cmdQuit" Click="cmdQuit_Click" HorizontalAlignment="Right" ToolTip="Quit">
+                    <Image Source="..\Images\Quit.png" Stretch="None"/>
+                </Button>
+                <ScrollViewer Name="svWorkspace" 
+                                Grid.Row="1" Grid.ColumnSpan="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                VerticalScrollBarVisibility="Auto" 
+                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center" >
+                    <Grid Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                            Path=workingAreaHeight, Mode=OneWay}" 
+                            Width="{Binding Source={x:Static properties:Settings.Default}, 
+                                    Path=workingAreaWidth, Mode=OneWay}" Margin="50">
+                        <!-- Sibling border to add shadow -->
+                        <Border Grid.Row="1" Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                        Path=workingAreaHeight, Mode=OneWay}" 
+                                Width="{Binding Source={x:Static properties:Settings.Default}, 
+                                        Path=workingAreaWidth, Mode=OneWay}"
+                                BorderBrush="DarkGray"
+                                BorderThickness="3">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="DarkGray"/>
+                                </Border.Effect>
+                        </Border>
+                        <ListBox Name="lbWorkspace" 
+                                    ItemsSource="{Binding Path=Sketches}"
+                                    SelectionChanged="lbWorkspace_SelectionChanged" SelectionMode="Extended"
+                                    Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                            Path=workingAreaHeight, Mode=OneWay}" 
+                                    Width="{Binding Source={x:Static properties:Settings.Default}, 
+                                            Path=workingAreaWidth, Mode=OneWay}" 
+                                 BorderThickness="0" MouseUp="lbWorkspace_MouseUp">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="SketchThumbnail">
+                                    <!--This works well for dragging but prevents selection-->
+                                    <Grid>                                   
+                                        <Thumb Width="Auto" 
+                                                Height="Auto" 
+                                                DragDelta="Thumb_DragDelta"
+                                                PreviewMouseLeftButtonDown="Thumb_PreviewMouseLeftButtonDown"
+                                                MouseDoubleClick="Thumb_MouseDoubleClick"
+                                                Cursor="SizeAll">
+                                            <Thumb.Template>
+                                                <ControlTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <Border BorderThickness="1" CornerRadius="3,3,3,3" SnapsToDevicePixels="True" Style="{StaticResource ThumbnailWSBorder}">
+                                                            <Image Source="{Binding canvas.thumbnail}" RenderOptions.BitmapScalingMode="HighQuality">
+                                                                <Image.Height>
+                                                                    <MultiBinding Converter="{StaticResource ProductConverter}">
+                                                                        <Binding ElementName="WSScaleSlider" Path="Value"/>
+                                                                        <Binding Path="Scale" />
+                                                                        <Binding Path="height"/>
+                                                                    </MultiBinding>
+                                                                </Image.Height>
+                                                                <Image.Width>
+                                                                    <MultiBinding Converter="{StaticResource ProductConverter}">
+                                                                        <Binding ElementName="WSScaleSlider" Path="Value"/>
+                                                                        <Binding Path="Scale" />
+                                                                        <Binding Path="width"/>
+                                                                    </MultiBinding>
+                                                                </Image.Width>
+                                                            </Image>
+
+                                                            <!--Border.Effect>
+                                                                <DropShadowEffect Color="DarkGray"/>
+                                                            </Border.Effect-->
+                                                            
+                                                        </Border>
+                                                        <TextBlock Text="{Binding name}" HorizontalAlignment="Center" Style="{StaticResource CanvasCaptionText}"/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </Thumb.Template>
+                                        </Thumb>
+                                        <Slider VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Height="25" Minimum="0.05" Maximum="2.0" TickFrequency="0.05" IsMoveToPointEnabled="true" Value="{Binding Scale}">
+                                            <Slider.Style>
+                                                <Style TargetType="Slider">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="true">
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="false">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Slider.Style>
+                                        </Slider>
+                                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="removeCanvasFromWS_Click" FontFamily="Arial Unicode MS" Margin="0,2,2,0">
+                                            <TextBlock Text="x" Margin="2,-4,2,-1">
+                                                <TextElement.Foreground>
+                                                    <SolidColorBrush Color="CornflowerBlue" Opacity="0.75"/>
+                                                </TextElement.Foreground>
+                                            </TextBlock>
+                                        </Button>
+                                    </Grid>
+                                    <!--This sort of works but is really choppy-->
+                                    <!--Border BorderBrush="Black" BorderThickness="1" >
+                                        <Image Source="{Binding thumbnail}"                              
+                                                Width="{Binding width}" 
+                                                Height="{Binding height}" 
+                                                Canvas.Left="{Binding x}" 
+                                                Canvas.Top ="{Binding y}"
+                                                Canvas.ZIndex ="{Binding y}"
+                                                MouseDown="Image_MouseDown"
+                                                MouseMove="Image_MouseMove"
+                                                MouseUp="Image_MouseUp"/>
+                                    </Border-->
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding Path=y}" />
+                                    <Setter Property="Canvas.Left" Value="{Binding Path=x}" />
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent"/>
+                                    </Style.Resources>
+                                </Style>
+                            </ListBox.ItemContainerStyle>                        
+                            <!--Ellipse Canvas.Left="100" Fill="Red" Width="100" Height="100" />
+                            <Ellipse Fill="Green" Width="100" Height="100" /-->
+                        </ListBox>
+                        <InkCanvas Name="icNotes" Background="Transparent" IsHitTestVisible="False">
+                        </InkCanvas>
+                    </Grid>
+                </ScrollViewer>
+                <Grid Grid.Row="1" Grid.ColumnSpan="2" 
+                      MaxHeight="{Binding Source={x:Static properties:Settings.Default}, 
+                                Path=workingAreaHeight, Mode=OneWay}" 
+                      MaxWidth="{Binding Source={x:Static properties:Settings.Default}, 
+                                Path=workingAreaWidth, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="20">
+                        <ToggleButton Name="tglErase" Height="32" 
+                                      Margin="0,0,10,10"
+                                      Checked="EnableEraseMode"
+                                      Visibility="Collapsed">
+                            <Image Source="..\Images\WSErase.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </ToggleButton>
+                        <ToggleButton Name="tglPencil" Height="32" 
+                                      Margin="0,0,10,10"
+                                      Checked="EnableDrawMode"
+                                      IsChecked="True"
+                                      Visibility="Collapsed">
+                            <Image Source="..\Images\WSPencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </ToggleButton>
+                        <ToggleButton Name="tglDraw" 
+                                      Margin="0,0,10,10"
+                                      Checked="tglDraw_Checked"
+                                      Unchecked="tglDraw_Unchecked"
+                                      Focusable="false">
+                            <Image Source="..\Images\WSPencil.png" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </ToggleButton>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <GridSplitter Name="HSplitter" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
+            <Expander Name="detailExpander" Header="Details"  ExpandDirection="Down" Grid.Row="2" IsExpanded="True" FlowDirection="RightToLeft" Collapsed="detailExpander_Collapsed" Expanded="detailExpander_Expanded">
+                <ListView Name="lvDetails" FlowDirection="LeftToRight" BorderThickness="1" ItemsSource="{Binding Path=selectedCanvases}">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="True">
+                            <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="ID" Width="Auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding user}" Header="Created By" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding tags, Converter={StaticResource ListToStringConverter}}" Header="Tags" Width="125"/>
+                            <GridViewColumn Header="Notes" Width="300">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding annotation}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding created, StringFormat=\{0:M/dd/yyyy h:mm tt\}}" Header="Created" Width="125"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding modified, StringFormat=\{0:M/dd/yyyy h:mm tt\}}" Header="Modified" Width="125"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <EventSetter Event="MouseDoubleClick" Handler="DetailItem_MouseDoubleClick"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                </ListView>
+            </Expander>
+        </Grid>
+    </Grid>
+
+</Window>

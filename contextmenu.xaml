@@ -1,0 +1,85 @@
+                    <ContextMenu Name="mainMenu">
+                        <MenuItem StaysOpenOnClick="True">
+                            <MenuItem.Header>
+                                <WrapPanel Grid.Row ="0" Name="editmode">
+                                    <RadioButton Style="{StaticResource {x:Type ToggleButton}}" 
+                                             ToolTip="Draw" GroupName="EditMode" Name="cmdDraw" Click="cmdDraw_Click" Width="24" IsChecked="True">
+                                        <Image Source="Images\Draw.png"/>
+                                    </RadioButton>
+                                    <RadioButton Style="{StaticResource {x:Type ToggleButton}}" 
+                                             ToolTip="Erase" GroupName="EditMode" Name="cmdErase" Click="cmdErase_Click" Width="24">
+                                        <Image Source="Images\Erase.png" />
+                                    </RadioButton>
+                                    <RadioButton Style="{StaticResource {x:Type ToggleButton}}" 
+                                             ToolTip="Erase" GroupName="EditMode" Name="cmdEraseStroke" Click="cmdEraseStroke_Click" Width="24">
+                                        <Image Source="Images\EraseStroke.png" />
+                                    </RadioButton>
+                                    <RadioButton Style="{StaticResource {x:Type ToggleButton}}" 
+                                             ToolTip="Highlight" GroupName="EditMode" Name="cmdHighlighter" Click="cmdHighlighter_Click"  Width="24">
+                                        <Image Source="Images\Highlighter.png" />
+                                    </RadioButton>
+                                    <RadioButton Style="{StaticResource {x:Type ToggleButton}}" 
+                                             ToolTip="Highlight" GroupName="EditMode" Name="cmdSelect" Click="cmdSelect_Click"  Width="24">
+                                        <Image Source="Images\Select.png" />
+                                    </RadioButton>
+                                </WrapPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem Name="editMethod" Header="Edit Mode">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Draw.png"/>
+                            </MenuItem.Icon>
+                            <MenuItem Name="inkMode" Header="Draw" IsCheckable="True" IsChecked="True">
+                                <MenuItem.Icon>
+                                    <Image Source="Images\Draw.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Name="eraseMode" Header="Erase" IsCheckable="True">
+                                <MenuItem.Icon>
+                                    <Image Source="Images\Erase.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Name="eraseStrokeMode" Header="Erase Strokes" IsCheckable="True">
+                                <MenuItem.Icon>
+                                    <Image Source="Images\EraseStroke.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Name="highlighterMode" Header="Highlighter" IsCheckable="True">
+                                <MenuItem.Icon>
+                                    <Image Source="Images\Highlighter.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Name="selectMode" Header="Select" IsCheckable="True">
+                                <MenuItem.Icon>
+                                    <Image Source="Images\Highlighter.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Width" StaysOpenOnClick="True">
+                            <MenuItem.Icon>
+                                <Image Source="Images\MedLine.png"/>
+                            </MenuItem.Icon>
+                            <MenuItem Name="mSmall" IsCheckable="True" Width="Auto" StaysOpenOnClick="True">
+                                <MenuItem.Header>
+                                    <Rectangle Width="40" HorizontalAlignment="Stretch" Fill="Black" Height="1"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem Name="mMed" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True">
+                                <MenuItem.Header>
+                                    <Rectangle HorizontalAlignment="Stretch" Fill="Black" Height="2"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem Name="mLarge" IsCheckable="True" StaysOpenOnClick="True">
+                                <MenuItem.Header>
+                                    <Rectangle HorizontalAlignment="Stretch" Fill="Black" Height="3"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+
+                        </MenuItem>
+                        <MenuItem StaysOpenOnClick="True">
+                            <MenuItem.Header>
+                                <xctk:ColorPicker Grid.Row="2" HorizontalAlignment="Left" DisplayColorAndName="True" SelectedColorChanged="ColorPicker_SelectedColorChanged"></xctk:ColorPicker>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </ContextMenu>

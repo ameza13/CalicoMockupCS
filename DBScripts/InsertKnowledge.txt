@@ -1,0 +1,1 @@
+INSERT INTO `amezadev_hc`.`DevKnowledge` (type, keywords, description, checked) VALUES (0, 'test keywork', 'test description', 0)

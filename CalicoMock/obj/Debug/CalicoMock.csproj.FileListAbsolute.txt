@@ -1,0 +1,100 @@
+W:\School\CalicoMock\CalicoMock\bin\Debug\CalicoMock.exe.config
+W:\School\CalicoMock\CalicoMock\bin\Debug\CalicoMock.exe
+W:\School\CalicoMock\CalicoMock\bin\Debug\CalicoMock.pdb
+W:\School\CalicoMock\CalicoMock\bin\Debug\UIControls.dll
+W:\School\CalicoMock\CalicoMock\bin\Debug\WPFToolkit.dll
+W:\School\CalicoMock\CalicoMock\bin\Debug\Xceed.Wpf.Toolkit.dll
+W:\School\CalicoMock\CalicoMock\bin\Debug\UIControls.pdb
+W:\School\CalicoMock\CalicoMock\bin\Debug\WPFToolkit.pdb
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.csprojResolveAssemblyReference.cache
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\StrokeContextMenu.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\TagPicker.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\ToolBox.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\EditWorkspaceDialog.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\DetailsDialog.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\EditorView.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\StrokeContextMenu.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\TagPicker.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\ToolBox.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\EditWorkspaceDialog.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\WorkspaceView.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\App.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\GeneratedInternalTypeHelper.g.cs
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.cache
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.lref
+W:\School\CalicoMock\CalicoMock\obj\Debug\App.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\DetailsDialog.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\EditorView.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\View\WorkspaceView.baml
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.g.resources
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.Properties.Resources.resources
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.csproj.GenerateResource.Cache
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.exe
+W:\School\CalicoMock\CalicoMock\obj\Debug\CalicoMock.pdb
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\CalicoMock.exe.config
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.exe
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.pdb
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\CalicoMock.exe
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\CalicoMock.pdb
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\UIControls.dll
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\UIControls.pdb
+D:\VS Projects\CalicoMock\CalicoMock\bin\Debug\WPFToolkit.pdb
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.csprojResolveAssemblyReference.cache
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\StrokeContextMenu.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\TagPicker.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\ToolBox.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\EditWorkspaceDialog.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\DetailsDialog.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\EditorView.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\StrokeContextMenu.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\TagPicker.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\ToolBox.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\EditWorkspaceDialog.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\WorkspaceView.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\App.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.cache
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.lref
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\App.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\DetailsDialog.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\EditorView.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\View\WorkspaceView.baml
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.g.resources
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.Properties.Resources.resources
+D:\VS Projects\CalicoMock\CalicoMock\obj\Debug\CalicoMock.csproj.GenerateResource.Cache
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\CalicoMock.exe.config
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\CalicoMock.exe
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\CalicoMock.pdb
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\MySql.Data.dll
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\MySql.Data.Entity.EF6.dll
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\UIControls.dll
+E:\Proyectos\CalicoCS\CalicoMock\bin\Debug\UIControls.pdb
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.csprojResolveAssemblyReference.cache
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\KnowledgeContent.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\StrokeContextMenu.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\TagPicker.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\ToolBox.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\EditWorkspaceDialog.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\DetailsDialog.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\EditorView.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\KnowledgeContent.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\StrokeContextMenu.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\TagPicker.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\ToolBox.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\EditWorkspaceDialog.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\WorkspaceView.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\App.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.cache
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock_MarkupCompile.lref
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\App.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\DetailsDialog.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\EditorView.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\WorkspaceView.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.g.resources
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.Properties.Resources.resources
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.csproj.GenerateResource.Cache
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.exe
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\CalicoMock.pdb
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\RelKnowledgeContent.baml
+E:\Proyectos\CalicoCS\CalicoMock\obj\Debug\View\RelKnowledgeContent.g.cs

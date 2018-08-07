@@ -1,0 +1,298 @@
+﻿<Window x:Class="CalicoMock.View.EditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:search="clr-namespace:UIControls;assembly=UIControls"
+        xmlns:controls="clr-namespace:CalicoMock"
+        xmlns:properties="clr-namespace:CalicoMock.Properties"
+        Title="Calico Redux" Height="1024" Width="1280"
+        WindowState="Maximized" Closed="Window_Closed"
+        Closing="Window_Closing"
+        Activated="Window_Activated">    
+    <Grid Name="MainGrid" DataContext="_viewModel" Background="AliceBlue">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Auto"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+            <Grid Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                            Path=workingAreaHeight, Mode=OneWay}" 
+                    Width="{Binding Source={x:Static properties:Settings.Default}, 
+                            Path=workingAreaWidth, Mode=OneWay}" Margin="50" SnapsToDevicePixels="True">
+                <!-- Sibling border to add shadow -->
+                <Border Grid.Row="1" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                            Path=workingAreaHeight, Mode=OneWay}" 
+                        Width="{Binding Source={x:Static properties:Settings.Default}, 
+                                Path=workingAreaWidth, Mode=OneWay}"
+                        BorderBrush="DarkGray"
+                        BorderThickness="3">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray"/>
+                    </Border.Effect>
+                </Border>
+                <InkCanvas Name="icCanvas" 
+                       Height="{Binding Source={x:Static properties:Settings.Default}, 
+                                Path=workingAreaHeight, Mode=OneWay}" 
+                       Width="{Binding Source={x:Static properties:Settings.Default}, 
+                                Path=workingAreaWidth, Mode=OneWay}"
+                       SelectionChanged="inkCanvas_SelectionChanged" 
+                       StrokeCollected="inkCanvas_StrokeCollected" 
+                       StrokeErasing="inkCanvas_StrokeErasing"
+                       SelectionMoved="inkCanvas_SelectionMoved"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                </InkCanvas>
+            </Grid>
+        </ScrollViewer>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid MaxHeight="{Binding Source={x:Static properties:Settings.Default}, 
+                        Path=workingAreaHeight, Mode=OneWay}" 
+                  MaxWidth="{Binding Source={x:Static properties:Settings.Default}, 
+                        Path=workingAreaWidth, Mode=OneWay}" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SnapsToDevicePixels="True" Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ToggleButton Name="cmdToolbox" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25" Checked="cmdToolbox_Checked" Unchecked="cmdToolbox_Unchecked">
+                    <Image Source="..\Images\Toolbox.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                </ToggleButton>
+                <ToggleButton Name="cmdInfo" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="25" Checked="cmdInfo_Checked" Unchecked="cmdInfo_Unchecked">
+                    <Image Source="..\Images\StarEmpty.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="1.25,1.281"></Image>
+                </ToggleButton>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="25">
+                    <Button Name="cmdDetails" Click="cmdDetails_Click" ToolTip="Details" Height="40" Focusable="false">
+                        <Image Source="..\Images\Details.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </Button>
+                    <Button Name="cmdNew" Click="cmdNew_Click" ToolTip="New" Focusable="false">
+                        <Image Source="..\Images\NewCanvas.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </Button>
+                    <Button Name="cmdClone" Click="cmdClone_Click" ToolTip="Clone" Focusable="false">
+                        <Image Source="..\Images\CloneCanvas.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </Button>
+                    <Button Name="cmdQuit" Click="cmdQuit_Click" ToolTip="Done Editing" Focusable="false">
+                        <Image Source="..\Images\Done.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </Button>
+                    <Button Name="cmdRefreshKnowledge" Click="cmdRefreshKnowledge_Click" ToolTip="Refresh knowledge list" Focusable="false">
+                        <Image Source="..\Images\StarEmpty.png" Opacity="0.9" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+        </Grid>
+        <Expander Name="navFloatExpander" 
+                  ExpandDirection="Left" 
+                  FlowDirection="RightToLeft" IsExpanded="True" 
+                  SnapsToDevicePixels="True"
+                  HorizontalAlignment="Left"
+                  Margin="0,0,0,50" Width="200">
+            <Expander.Style>
+                <Style TargetType="Expander">
+                    <Style.Triggers>
+                        <Trigger Property="IsExpanded" Value="true">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="AliceBlue" Opacity="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Width" Value="200"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                        </Trigger>
+                        <Trigger Property="IsExpanded" Value="false">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Expander.Style>
+            <Grid FlowDirection="LeftToRight" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ListView Name="lvKnowledge" FlowDirection="LeftToRight" BorderBrush="LightGray" BorderThickness="1" SelectionMode="Single" Grid.Row="0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <GridSplitter Name="VSplitter" Grid.Column="0" Grid.Row="1" Width="Auto" Height="3" ResizeDirection="Rows"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <ComboBox Grid.Row="2" Name="cboWSNameSelector" Width="110" HorizontalAlignment="Left" SelectedItem="{Binding Path=SelectedWSName}" SelectionChanged="cboWSNameSelector_SelectionChanged">
+                    <!--This style is needed so the separator row can't be selected-->
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding}" Value="">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <Separator HorizontalAlignment="Stretch" IsEnabled="False"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Menu Grid.Row="2" Background="Transparent"  HorizontalAlignment="Right" Margin="0,2,0,0">
+                    <MenuItem Padding="0" ToolTip="Sort Canvas List" Height="30">
+                        <MenuItem.Icon>
+                            <Image Source="..\Images\Sort.png" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        </MenuItem.Icon>
+                        <MenuItem Name="sortAscending" Header="Sort Ascending" IsCheckable="True" Checked="sortAscending_Checked">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\Sort.png" Stretch="None" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="sortDescending" Header="Sort Descending" IsCheckable="True" Checked="sortDescending_Checked">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\SortDesc.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Name="sortByMenu" Header="Sort By">
+                            <MenuItem Header="Name" IsCheckable="True" Tag="name" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Created" IsCheckable="True" Tag="created" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Modified" IsCheckable="True" Tag="modified" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                            <MenuItem Header="Creator" IsCheckable="True" Tag="user" Checked="sortBy_Checked" Unchecked="sortBy_Unchecked"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Name="FilterMenu" Padding="0" ToolTip="Filter Canvas List" SubmenuOpened="FilterMenu_SubmenuOpened" Height="30">
+                        <MenuItem.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Background="White"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </MenuItem.ItemsPanel>
+                        <MenuItem.Icon>
+                            <Image Source="..\Images\Filter.png" Stretch="None"></Image>
+                        </MenuItem.Icon>
+                        <TextBlock Text="Filter By" Focusable="False"/>
+                        <Separator/>
+                        <MenuItem Name="FavFilter" Header="Favorites" IsCheckable="True" Checked="FavFilter_CheckChanged" Unchecked="FavFilter_CheckChanged">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\StarEmpty.png" Stretch="None"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Tags">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\Tags.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                            <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                <ListBox Name="lbTagFilter" ItemsSource="{Binding allTagsChecked}" Width="100" Padding="0,5,0,0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Path=Key}" Checked="tag_CheckChanged" Unchecked="tag_CheckChanged" IsChecked="{Binding Path=Value, Mode=OneWay}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+                        </MenuItem>
+                        <MenuItem Header="User">
+                            <MenuItem.Icon>
+                                <Image Source="..\Images\User.png" Stretch="None"></Image>
+                            </MenuItem.Icon>
+                            <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                <ListBox Name="lbUserFilter" ItemsSource="{Binding allUsersChecked}" Width="100" Padding="0,5,0,0">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Path=Key}"  Checked="user_CheckChanged" Unchecked="user_CheckChanged" IsChecked="{Binding Path=Value, Mode=OneWay}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+                <search:SearchTextBox Name="searchBox"  Grid.Row="3" FlowDirection="LeftToRight" Height="25" Search="SearchTextBox_Search" SearchEventTimeDelay="0" />
+                <ListView Grid.Row="4" Name="lvCanvasList" FlowDirection="LeftToRight" BorderBrush="LightGray" BorderThickness="1" ItemsSource="{Binding}" SelectionMode="Single">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid IsItemsHost="True" VerticalAlignment="Top" HorizontalAlignment="Left" Columns="1"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="CCanvas">
+                            <StackPanel Orientation="Vertical">
+                                <Border BorderThickness="1" 
+                                        BorderBrush="Black" 
+                                        CornerRadius="3,3,3,3" 
+                                        Style="{StaticResource ThumbnailNavBorder}">
+                                    <Grid>
+                                        <Image Source="{Binding Path=thumbnail}"
+                                               Width="{Binding ElementName=ItemHeightSlider, Path=Value, Converter={StaticResource AspectRatioConverter}}"
+                                               Height="{Binding ElementName=ItemHeightSlider, Path=Value}"
+                                               HorizontalAlignment="Center"
+                                               RenderOptions.BitmapScalingMode="HighQuality">
+                                        </Image>
+                                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Click="removeCanvas_Click" FontFamily="Arial Unicode MS">
+                                            <TextBlock Text="x" Margin="2,-4,2,-1">
+                                                <TextElement.Foreground>
+                                                    <SolidColorBrush Color="CornflowerBlue" Opacity="0.75"/>
+                                                </TextElement.Foreground>
+                                            </TextBlock>
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=cboWSNameSelector, Path=SelectedItem}" Value="All Canvases">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <ToggleButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Focusable="False" IsChecked="{Binding IsFavorite}">
+                                            <ToggleButton.Style>
+                                                <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsChecked" Value="true">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <Image Source="..\Images\StarFull.png"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="false">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <Image Source="..\Images\StarEmpty.png"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ToggleButton.Style>
+                                        </ToggleButton>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="{Binding Path=name}" HorizontalAlignment="Center" Style="{StaticResource CanvasNavCaptionText}"
+                                           MaxWidth="{Binding ElementName=ItemHeightSlider, Path=Value, Converter={StaticResource AspectRatioConverter}}"
+                                           TextWrapping="Wrap" Padding="0,0,0,5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="MouseUp" Handler="lvNavItem_Click"/>
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <Slider Name="ItemHeightSlider" Grid.Row="5" BorderBrush="LightGray" BorderThickness="1" Minimum="25" Maximum="200" HorizontalAlignment="Stretch" MaxWidth="100" IsSnapToTickEnabled="True" TickFrequency="5" Value="100"/>
+            </Grid>
+        </Expander>
+    </Grid>
+
+</Window>
